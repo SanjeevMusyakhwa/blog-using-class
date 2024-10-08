@@ -2,29 +2,18 @@
 {% block content %}
 <div class="container-fluid mt-5">
   <div class="row gx-4 gx-lg-5 justify-content-center">
-    {% for post in posts %}
     <div class="col-md-10 col-lg-8 col-xl-7">
       <div class="post-preview">
-        <a href="{% url 'postDetail' post.pk %}">
           <h2 class="post-title">{{ post.title }}</h2>
         </a>
-        <p class="post-subtitle">{{ post.content| truncatechars:300 }}
-          <a href="{% url 'postDetail' post.pk %}">View More</a>
+        <p class="post-subtitle">{{ post.content| linebreaksbr }}
         </p>
         <p class="post-meta">
           @{{ post.author.username }}
           on {{ post.published_at }}
-       
         </p>
       </div>
-      <!-- Divider-->
-      <hr class="my-4" />
     </div>
-      <!-- Pager-->
-      {% endfor %}
-      <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a>
-      </div>
-    
   </div>
 </div>
 {% endblock content %}
