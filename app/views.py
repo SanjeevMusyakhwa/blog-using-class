@@ -21,3 +21,21 @@ class PostDetailView(DetailView):
   def get_queryset(self):
     post = Post.objects.filter(pk = self.kwargs['pk'], published_at__isnull = False)
     return post
+  
+class DraftListView(ListView):
+  model = Post
+  template_name = 'draftList.html'
+  context_object_name = 'posts'
+
+  def get_queryset(self):
+    posts = Post.objects.filter(published_at__isnull = True).order_by('-published_at')
+    return posts
+
+class DraftDetailView(DetailView):
+  model = Post
+  template_name='draftDetail.html'
+  context_object_name = 'post'
+
+  def get_queryset(self):
+    post = Post.objects.filter(pk = self.kwargs['pk'], published_at__isnull = True)
+    return post
