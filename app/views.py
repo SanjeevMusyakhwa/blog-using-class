@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.urls import reverse_lazy 
 from django.views.generic import ListView,DetailView, CreateView, UpdateView, View
 from app.models import Post
@@ -78,11 +78,12 @@ class PublishPostView(LoginRequiredMixin, View):
     return redirect('postDetail', pk)
   
 class DeletePostView(LoginRequiredMixin, View):
-  def get(self, request, pk):
-    post = Post.objects.get(pk = pk)
-    post.delete()
-    return redirect('postList')
-  
-  def form(self, form):
-    messages.success(self.request, "Post Deleted Successfully")
-    return super().form_valid(form)
+    def post(self, request, pk):
+        # Fetch the post using pk or return 404 if not found
+        post = get_object_or_404(Post, pk=pk)
+        post.delete()
+        # Add a success message
+        messages.success(request, "Post deleted successfully.")
+        
+        # Redirect to post list or any desired page
+        return redirect('postList')

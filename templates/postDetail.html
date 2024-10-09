@@ -4,10 +4,12 @@
   <div class="row gx-4 gx-lg-5 ">
     <div class="col mt-5">
       <div class="post-preview">
-          <h2 class="post-title">{{ post.title }}</h2>
+        <h2 class="post-title">{{ post.title }}</h2>
         </a>
         <a href="{% url 'updatePost' post.pk  %}" class="btn btn-primary ">Edit</a>
-        <a href="{% url 'postDelete' post.pk %}" class="btn btn-danger">Delete</a>
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+          Delete
+        </button>
         <p class="post-subtitle">{{ post.content| linebreaksbr }}
         </p>
         <p class="post-meta">
